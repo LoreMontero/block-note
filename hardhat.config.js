@@ -1,5 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
 
+require('dotenv').config();
+
 task("accounts", "Printst the list of accounts", async (taskArgs, hre) => {
   const accounts = await hre.ethers.getSigners();
 
@@ -22,8 +24,12 @@ module.exports = {
   solidity: "0.8.17",
   networks: {
     goerli: {
-      url: "https://patient-dawn-arrow.ethereum-goerli.discover.quiknode.pro/a0c6a0e01e40486fa5c62d4fb0e7b8768496a4a2/",
-      accounts: ["0x8d1a793c84a768806af216d03d22bf7fb26504d346f945d29c937d34804c9344"]
+      url: process.env.STAGING_QUICKNODE_KEY,
+      accounts: [process.env.PRIVATE_KEY],
+    },
+    mainnet: {
+      url: process.env.PROD_ALCHEMY_KEY,
+      accounts: [process.env.PRIVATE_KEY],
     }
   }
 };
